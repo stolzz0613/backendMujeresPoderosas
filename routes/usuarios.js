@@ -49,7 +49,7 @@ ruta.post('/', (req, res) => {
             })
         });
     } else {
-        res.status(400).json({
+        res.status(400).json( err => {
             err
         });
     };
@@ -68,13 +68,13 @@ ruta.put('/:email', (req, res) => {
             res.json({
                 valor: valor
             })
-        }).catch(err => {
+        }).catch( err => {
             res.status(400).json({
                 err
             });
         });
     } else {
-        res.status(400).json({
+        res.status(400).json( err => {
             err
         })
     }
@@ -123,6 +123,7 @@ async function desactivarUsuario(email) {
             state: false
         }
     }, {new: true});
+    return usuario;
 }
 
 module.exports = ruta;
