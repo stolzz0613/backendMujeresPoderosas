@@ -5,9 +5,9 @@ const ruta = express.Router();
 ruta.post('/', (req, res) => {
     let resultado = login(req.body);
 
-    resultado.then(logged => {
+    resultado.then(user => {
         res.json({
-            logged
+            user
         })
     }).catch(err => {
         res.status(400).json({
@@ -20,11 +20,18 @@ async function login(data) {
     let logged = false;
     let user = await Usuario.findOne({'email': data.email, state: true});
 
-    (Object.keys(user).length > 0) && (user.password == data.password)
-        ? logged = true
-        : logged = false
+    if (Object.keys(user).length > 0 && user.password == data.password) {
+        return ({
+            logged: true,
+            name: user.name,
+            email: user.email
+        })
+    } else {
+        return ({
+            logged: false,
+        });
+    }
 
-    return logged;
 }
 
 module.exports = ruta;
