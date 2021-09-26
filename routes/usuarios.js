@@ -71,7 +71,6 @@ ruta.put('/:email', (req, res) => {
     let body = req.body;
     const {error, value} = schema.validate({
         name: body.name,
-        password: body.password
     });
 
     if(!error) {
@@ -127,7 +126,6 @@ async function actualizarUsuario(email, body) {
     let usuario = await Usuario.findOneAndUpdate({email: email}, {
         $set: {
             name: body.name,
-            password: body.password
         }
     }, {new: true});
     return usuario;
