@@ -9,6 +9,10 @@ const usuarioSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    job: {
+        type: String,
+        requerid: true
+    },
     password: {
         type: String,
         required: true
@@ -17,9 +21,17 @@ const usuarioSchema = new mongoose.Schema({
         type: Boolean,
         default: true
     },
+    linkedin: {
+        type: String,
+        required: true
+    },
+    github: {
+        type: String,
+        required: true
+    },
     image: {
         type: String,
-        required: false
+        required: true
     }
 });
 

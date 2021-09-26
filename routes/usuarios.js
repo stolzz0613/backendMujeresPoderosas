@@ -13,7 +13,15 @@ const schema = Joi.object({
         .pattern(/^[a-zA-Z0-9]{3,30}$/),
 
     email: Joi.string()
-        .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] }})
+        .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net', 'co']}}),
+
+    job: Joi.string(),
+
+    image: Joi.string(),
+
+    linkedin: Joi.string(),
+
+    github: Joi.string(),
 });
 
 ruta.get('/', (req, res) => {
@@ -34,7 +42,11 @@ ruta.post('/', (req, res) => {
     const {error, value} = schema.validate({
         name: body.name,
         email: body.email,
-        password: body.password
+        password: body.password,
+        job: body.job,
+        linkedin: body.linkedin,
+        github: body.github,
+        image: body.image
     });
 
     if (!error) {
@@ -95,15 +107,19 @@ ruta.delete('/:email', (req, res) => {
 
 async function crearUsuario(body) {
     let usuario = new Usuario({
-        email       : body.email,
-        name      : body.name,
-        password    : body.password
+        name: body.name,
+        email: body.email,
+        password: body.password,
+        job: body.job,
+        linkedin: body.linkedin,
+        github: body.github,
+        image: body.image
     });
     return await usuario.save();
 }
 
 async function listarUsuariosActivos() {
-    let usuarios = await Usuario.find({'state': true});
+    let usuarios = await Usuario.find({'state': true}, {password: 0})
     return usuarios;
 }
 
