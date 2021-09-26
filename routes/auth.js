@@ -17,14 +17,14 @@ ruta.post('/', (req, res) => {
 });
 
 async function login(data) {
-    let logged = false;
     let user = await Usuario.findOne({'email': data.email, state: true});
 
     if (Object.keys(user).length > 0 && user.password == data.password) {
         return ({
             logged: true,
             name: user.name,
-            email: user.email
+            email: user.email,
+            image: user.image,
         })
     } else {
         return ({
