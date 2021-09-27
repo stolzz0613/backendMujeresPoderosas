@@ -5,6 +5,10 @@ const usuarioSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    cc: {
+        type: String,
+        required: true
+    },
     name: {
         type: String,
         required: true

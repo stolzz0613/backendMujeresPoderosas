@@ -9,6 +9,8 @@ const schema = Joi.object({
         .max(30)
         .required(),
 
+    cc: Joi.string(),
+
     password: Joi.string()
         .pattern(/^[a-zA-Z0-9]{3,30}$/),
 
@@ -41,6 +43,7 @@ ruta.post('/', (req, res) => {
     let body = req.body;
     const {error, value} = schema.validate({
         name: body.name,
+        cc: body.cc,
         email: body.email,
         password: body.password,
         job: body.job,
@@ -107,6 +110,7 @@ ruta.delete('/:email', (req, res) => {
 async function crearUsuario(body) {
     let usuario = new Usuario({
         name: body.name,
+        cc: body.cc,
         email: body.email,
         password: body.password,
         job: body.job,
