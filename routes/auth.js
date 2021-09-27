@@ -23,6 +23,7 @@ async function login(data) {
         return ({
             logged: true,
             name: user.name,
+            cc: user.cc,
             email: user.email,
             image: user.image,
         })
