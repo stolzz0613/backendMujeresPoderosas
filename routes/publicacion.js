@@ -30,8 +30,49 @@ ruta.post('/', (req, res) => {
     });
 });
 
+ruta.put('/:id', (req, res) => {
+    let body = req.body;
+
+    let resultado = actualizarPublicacion(req.params.id, req.body);
+    resultado.then(valor => {
+        res.json({
+            valor: valor
+        })
+    }).catch( err => {
+        res.status(400).json({
+            err
+        });
+    });
+});
+
+ruta.delete('/:id', (req, res) => {
+    let resultado = desactivarPublicacion(req.params.id);
+    resultado.then(valor => {
+        res.json({
+            usuario: valor
+        });
+    }).catch(err => {
+        res.status(400).json({
+            err
+        });
+    });
+});
+
+async function actualizarPublicacion(id, body) {
+    let publicacion = await Publicacion.findByIdAndUpdate(id, {
+        $set: {
+            titulo: body.titulo,
+            linkNoticia: body.linkNoticia,
+            linkImagen: body.linkImagen,
+            categoria: body.categoria,
+            estado: body.estado
+        }
+    }, {new: true});
+    return publicacion;
+}
+
 async function listarPublicaciones() {
-    let publicaciones = await Publicacion.find()
+    let publicaciones = await Publicacion.find({estado: { $ne: 'archivada'}})
     return publicaciones;
 }
 
@@ -44,6 +85,15 @@ async function crearPublicacion(body) {
         estado: body.estado,
     });
     return await publicacion.save();
+}
+
+async function desactivarPublicacion(id) {
+    let publicacion = await Publicacion.findByIdAndUpdate(id, {
+        $set: {
+            estado: 'archivada'
+        }
+    }, {new: true});
+    return publicacion;
 }
 
 module.exports = ruta;

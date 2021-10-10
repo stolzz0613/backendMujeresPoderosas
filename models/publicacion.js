@@ -20,7 +20,7 @@ const publicacionSchema = new mongoose.Schema({
     },
     estado: {
         type: String,
-        enum: ['guardada', 'publicada'],
+        enum: ['guardada', 'publicada', 'archivada'],
         required: true
     }
 });
