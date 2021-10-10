@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 
 const usuarios = require('./routes/usuarios');
+const publicaciones = require('./routes/publicacion');
 const auth = require('./routes/auth');
 const google = require('./routes/google');
 
@@ -19,6 +20,7 @@ app.use(cors());
 app.use('/api/usuarios', usuarios);
 app.use('/api/auth', auth);
 app.use('/api/google', google);
+app.use('/api/publicaciones', publicaciones);
 
 
 const port = process.env.PORT || 9000;
