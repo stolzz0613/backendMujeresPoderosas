@@ -7,6 +7,7 @@ const publicaciones = require('./routes/publicacion');
 const auth = require('./routes/auth');
 const google = require('./routes/google');
 const items = require('./routes/items');
+const encuestas = require('./routes/encuesta');
 
 const connectionString = 'mongodb+srv://db_user:andres0613@cluster0.oxhtw.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
 
@@ -23,6 +24,7 @@ app.use('/api/auth', auth);
 app.use('/api/google', google);
 app.use('/api/publicaciones', publicaciones);
 app.use('/api/items', items);
+app.use('/api/encuestas', encuestas);
 
 
 const port = process.env.PORT || 9000;
